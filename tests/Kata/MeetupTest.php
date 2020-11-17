@@ -6,7 +6,7 @@ use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Kata\Meetup;
 
-class MettupTest extends TestCase
+class MeetupTest extends TestCase
 {
     private $meetup;
 
@@ -94,5 +94,77 @@ class MettupTest extends TestCase
         $actual = $this->meetup->calculateDate($dateDescription);
 
         $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2018/12/31'), $actual);
+    }
+
+    public function testTheLastMondayOfDecember2018Returns20181225(): void
+    {
+        $dateDescription = new DateParser('The last Monday of December 2018');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2018/12/31'), $actual);
+    }
+
+    public function testTheWednesteenthOfJanuary2017Returns20170118(): void
+    {
+        $dateDescription = new DateParser('The wednesteenth of January 2017');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2017/01/18'), $actual);
+    }
+
+    public function testTheMonteenthOfJanuary2018Returns20180115(): void
+    {
+        $dateDescription = new DateParser('The monteenth of January 2018');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2018/01/15'), $actual);
+    }
+
+    public function testTheTuesteenthOfMarch2019Returns20190319(): void
+    {
+        $dateDescription = new DateParser('The tuesteenth of March 2019');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2019/03/19'), $actual);
+    }
+
+    public function testTheThursteenthOfOctober2019Returns20191017(): void
+    {
+        $dateDescription = new DateParser('The thursteenth of October 2019');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2019/10/17'), $actual);
+    }
+
+    public function testTheFriteenthOfNovember2019Returns20191115(): void
+    {
+        $dateDescription = new DateParser('The friteenth of November 2019');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2019/11/15'), $actual);
+    }
+
+    public function testTheSaturteenthOfJanuary2020Returns20200118(): void
+    {
+        $dateDescription = new DateParser('The saturteenth of January 2020');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2020/01/18'), $actual);
+    }
+
+    public function testTheSunteenthOfMarch2020Returns20200315(): void
+    {
+        $dateDescription = new DateParser('The sunteenth of March 2020');
+
+        $actual = $this->meetup->calculateDate($dateDescription);
+
+        $this->assertEquals(DateTimeImmutable::createFromFormat('Y/m/d', '2020/03/15'), $actual);
     }
 }

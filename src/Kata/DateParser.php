@@ -4,23 +4,30 @@ namespace Kata;
 
 class DateParser
 {
-    private $keyword;
+    const TEENTH_DAYS_KEYWORD = 'third';
+
+    private $position;
     private $day;
     private $month;
     private $year;
 
     public function __construct(string $description)
     {
+        $adapter = new DateKeywordToDayAdapter();
         $explodedDescription = explode(' ', $description);
-        $this->keyword = $explodedDescription[1];
-        $this->day = $explodedDescription[2];
-        $this->month = $explodedDescription[4];
-        $this->year = $explodedDescription[5];
+        $keyword = $explodedDescription[1];
+
+        if(preg_match('/teenth$/', $keyword)) {
+            $this->setupTeenthDays($adapter, $keyword, $explodedDescription);
+            return;
+        }
+
+        $this->setupDays($keyword, $explodedDescription);
     }
 
-    public function keyword(): string
+    public function position(): string
     {
-        return $this->keyword;
+        return $this->position;
     }
 
     public function day(): string
@@ -37,4 +44,23 @@ class DateParser
     {
         return $this->year;
     }
+
+    private function setupTeenthDays(DateKeywordToDayAdapter $adapter, string $keyword, array $explodedDescription): void
+    {
+        $this->setup(self::TEENTH_DAYS_KEYWORD, $adapter->transform($keyword), $explodedDescription[3], $explodedDescription[4]);
+    }
+
+    private function setupDays(string $keyword, array $explodedDescription): void
+    {
+        $this->setup($keyword, $explodedDescription[2], $explodedDescription[4], $explodedDescription[5]);
+    }
+
+    private function setup(string $position, string $day, string $month, string $year): void
+    {
+        $this->position = $position;
+        $this->day = $day;
+        $this->month = $month;
+        $this->year = $year;
+    }
 }
+
