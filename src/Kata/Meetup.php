@@ -2,7 +2,7 @@
 
 namespace Kata;
 
-class Index
+class Meetup
 {
     public function handle(): bool
     {
