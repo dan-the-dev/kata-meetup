@@ -2,10 +2,14 @@
 
 namespace Kata;
 
+use DateTimeImmutable;
+
 class Meetup
 {
-    public function handle(): bool
+    public function calculateDate(DateParser $dateParser): DateTimeImmutable
     {
-        return true;
+        $dateString = date("Y/m/d", strtotime("{$dateParser->keyword()} {$dateParser->day()} of {$dateParser->month()} {$dateParser->year()}"));
+        return DateTimeImmutable::createFromFormat('Y/m/d', $dateString);
     }
 }
+
